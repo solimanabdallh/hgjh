@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title> 
+      <style>
+       body {
+        font-family: Comic Sans MS Bold	;
+        font: 15px arial, sans-serif;
+        background-color: #d9d9d999;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-image: url("2.jpg");
+      }
+      h1 {
+        text-align: center;
+        margin: auto;
+        font-family: tahoma	;
+        color: rgb(11, 1, 88);
+      }
+      .container {
+        margin: auto;
+        display: block;
+        margin: auto;
+        max-width: 600px;
+        font: 15px arial, sans-serif;
+        background-color: rgba(255, 255, 255, 0.536);
+        border-style: solid;
+        border-width: 1px;
+        padding-top: 20px;
+        padding-bottom: 25px;
+        padding-right: 25px;
+        padding-left: 25px;
+        box-shadow: 8px 8px 8px rgb(18, 107, 148);
+        border-radius: 20px;
+        border-color: rgb(0, 13, 128);
+      }
+
+      #form {
+        display: none;
+        border-style: solid;
+        background-color: #f6f6f986;
+        border-width: 1px;
+        border-color: rgb(0, 73, 128);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        padding-right: 20px;
+        padding-left: 15px;
+        border-radius: 15px;
+        
+      }
+      input {
+        border: none;
+        padding: 50px 250px 50px 50px ;
+        border-radius: 40px;
+      }
+      #input:focus {
+        outline: none;
+      }
+      #form >fieldset> button {
+        background: rgb(107, 107, 107);
+        border: none;
+        padding: 10px;
+        margin: 5px;
+        border-radius: 5px;
+        outline: none;
+        color: rgba(20, 72, 112, 0.653);
+        cursor: pointer;
+        float: 50% left;
+      }
+
+      #form0 {
+        background: rgb(149, 157, 212);
+        padding: 30px;
+        position: fixed;
+        margin: 0;
+        width: 500px;
+        display: flex;
+        bottom: 10%;
+        box-shadow: 8px 8px 8px rgb(18, 83, 148);
+        border-radius: 20px;
+        border-color: rgb(36, 0, 128);
+
+        font: 15px arial, sans-serif;
+        background-color: rgba(255, 255, 255, 0.608);
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      #name {
+        border: blue;
+        padding: 0 11px;
+        flex-grow: 1;
+        border-radius: 50px;
+        margin: 1px;
+      }
+
+    
+      #password {
+        border : blue;
+        padding: 0 11px;
+        flex-grow : 1;
+        border-radius : 50px;
+        margin: 1px;
+      }
+    
+      
+
+      #form0 > span,#voice >button {
+        background: rgb(31, 9, 175);
+        border: none;
+        padding: 10px;
+        margin: 4px;
+        border-radius: 5px;
+        outline: none;
+        color: rgb(130, 152, 209);
+        cursor: pointer;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages > li {
+        padding: 8px 20px;
+      }
+
+      #messages > li:nth-child(even) {
+        background: rgb(107, 135, 218);
+      }
+      .image
+      {     position: fixed;
+            width: 500px;
+            height: 350px;
+            left: 500px;
+            top:150px;
+            border-style: solid;
+            box-shadow: 8px 8px 8px  rgb(16, 115, 176);
+            border-radius: 20px;
+            border-color:rgb(4, 15, 57);
+      }
+      
+      #emo >span{
+        cursor: pointer;
+        margin: 40px;
+        width: 50;
+        padding: 10;
+        margin: 1;
+
+      }
+   
+      #voice {
+        padding:0;
+        margin:0;
+        width: 50px;
+        height:20;
+        text-align: center;
+      }
+     
+
+      #aa{
+        border: none;
+
+      }
+      textarea{
+        background-color: rgb(32, 174, 240);
+        border: rgb(57, 66, 239) dotted;
+        border-radius: 5%;
+      }
+    </style>
+  </head>
+  <body>
+   
+      
+    <div class="container">
+      <ul id="messages"></ul>
+      <div id="con">
+        <h1>Welcome To Our Chat!</h1>
+        <span></span>
+        <form id="form0" action="">
+          <input id="name" placeholder="Enter Your Name Here" />
+          <input type="password" id="password" placeholder="Enter Your Password">
+          <span onclick="takename()">Login</span>
+         <a href="https://accounts.snapchat.com/accounts/welcome" class="snap-chat" target="_blank">
+            <i class="fa fa-snap snap-chat-icon"></i>
+          <img src="20.jpg" class="image">     </a>
+        </form>
+      </div>
+      
+
+      <form id="form" action="">
+        <fieldset>
+        <input id="input" autocomplete="off" placeholder="Write Here..." />
+        <span id="emo">
+          <span onclick="addemoj(e ='&#1128525;')"> &#128525; </span>
+          <span onclick="addemoj(e ='&#128514;')"> &#128514; </span>
+          <span onclick="addemoj(e ='&#128131;')"> &#128131; </span>
+          <span onclick="addemoj(e ='&#127877;')"> &#127877; </span>
+          <span onclick="addemoj(e ='&#128526;')"> &#128526; </span>
+          <span onclick="addemoj(e ='&#127839;')"> &#127839; </span>
+          <span onclick="addemoj(e ='&#128519;')"> &#128519; </span>
+          <span onclick="addemoj(e ='&#127827;')"> &#127827; </span>
+          <span onclick="addemoj(e ='&#128077;')"> &#128077; </span>
+          <span onclick="addemoj(e ='&#127804;')"> &#127804; </span>
+          <span onclick="addemoj(e ='&#128150;')"> &#128150; </span>
+          <span onclick="addemoj(e ='&#127758;')"> &#127758; </span>
+          <span onclick="addemoj(e ='&#9996;')"> &#9996; </span>
+          <span onclick="addemoj(e ='&#9749;')"> &#9749; </span>
+          <span onclick="addemoj(e ='&#129409;')"> &#129409; </span>
+          
+        </span>
+        
+        <span id="voice">
+          <audio id="audio" ></audio>
+        <button id="audio">voice</button>
+
+        </spann>
+        <button>Send</button>
+  
+      </fieldset>
+      </form>
+    </div> 
+    
+  
+    
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+
+      function addemoj(e) {
+        document.getElementById("input").value += e;
+      }
+
+      var names = ["samy", "sooly", "hassan"];
+      var passwords = ["1234", "2468", "1357" ];
+      var colors = ["yellow", "red", "green"];
+      var name = "";
+      var color = "";
+      function takename() {
+        let nameval = document.getElementById("name").value;
+        let passval = document.getElementById("password").value;
+        if (names.includes(nameval) && names.indexOf(nameval) == passwords.indexOf(passval)) {
+          name = nameval;
+          color = colors[names.indexOf(name)];
+          document.getElementById("con").style.display = "none";
+          document.getElementById("form").style.display = "block";
+        }
+      }
+
+      var messages = document.getElementById("messages");
+      var form = document.getElementById("form");
+      var input = document.getElementById("input");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (input.value) {
+          let msg = {
+            name: name,
+            color: color,
+            password: password, 
+            time: new Date(),
+            value: input.value,
+          };
+          socket.emit("chat message", msg);
+          input.value = "";
+        }
+      });
+     
+     
+
+
+      socket.on("chat message", function (msg) {
+        var item = document.createElement("li");
+        item.innerHTML =
+          "<span style='color:" +
+          msg.color +
+          ";'>" +
+          msg.name +
+          " : </span>" +
+          " " +
+          msg.value +
+          "     " + 
+          msg.time;
+        // item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
+    </script>
+      
+   
+  </body>
+</html>
